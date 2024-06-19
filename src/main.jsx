@@ -1,13 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import {Header, sections, InputSection, Duration} from './App.jsx'
+import { AppContainer} from './App.jsx'
+import { Header } from './Header.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Header />
-    <InputSection input1={sections['name']} input2={sections['address']} input3={sections['intro']}/>
-    <InputSection input1={sections['school']} input2={sections['major']} input3={sections['schoolDescr']}/>
-    <InputSection input1={sections['employer']} input2={sections['activity']} input3={sections['workDescr']}/>
-    <Duration/>
+    {/* <MainSection/>
+    <HistorySection input1="School" input2="Field of study" input3="Description"/>
+    <HistorySection input1="Employer" input2="Field of work" input3="Description"/> */}
+    <AppContainer/>
   </React.StrictMode>,
 )
