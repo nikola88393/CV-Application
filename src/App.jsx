@@ -57,6 +57,32 @@ function Text({placeholder}){
   );
 }
 
+export function Duration() {
+  const [isPresent, setIsPresent] = useState(false);
+
+  function handlePresent() {
+    setIsPresent(!isPresent);
+  }
+
+  return (
+    <div className='duration'>
+      <label>
+        Start date:
+        <input type="date" />
+      </label>
+      <span>-</span>
+      <label>
+        End date:
+        <input id='endDate' type="date" disabled={isPresent} />
+      </label>
+      <label>
+        Present:
+        <input id='present' type="checkbox" onChange={handlePresent} checked={isPresent} />
+      </label>
+    </div>
+  );
+}
+
 export function InputSection({input1, input2, input3}){
   return(
     <div className='inputSection'>
