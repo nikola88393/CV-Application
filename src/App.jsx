@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { MainSection } from './MainSection'
-import { CVPreview } from './Preview'
+import { CVPreview, EduEntries, WorkEntries } from './Preview'
 import './App.css'
-import { EduSection, WorkSection } from './HistorySection';
+import { EduSection, WorkSection,  } from './HistorySection';
 
 export function AppContainer(){
   const [cvData, setCvData] = useState({
@@ -21,9 +21,15 @@ export function AppContainer(){
   function handleSchoolsUpdate(school){
     setSchools([...schools, school]);
   }
+  function handleSchoolsDel(id){
+    setSchools(schools.filter(school => school.id !== id));
+  }
 
   function handleJobsUpdate(job){
     setJobs([...jobs, job]);
+  }
+  function handleJobsDel(id){
+    setJobs(jobs.filter(school => school.id !== id));
   }
 
   return (
@@ -31,6 +37,8 @@ export function AppContainer(){
       <MainSection cb={handleDataUpdate} />
       <EduSection cb={handleSchoolsUpdate}/>
       <WorkSection cb={handleJobsUpdate}/>
+      <EduEntries eduData={schools} eduDelCb={handleSchoolsDel}/>
+      <WorkEntries workData={jobs} workDelCb={handleJobsDel}/>
       <CVPreview mainData={cvData} eduData={schools} workData={jobs} />
     </div>
   );
