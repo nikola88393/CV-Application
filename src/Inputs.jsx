@@ -1,4 +1,4 @@
-import { useState } from 'react'
+// import { useState } from 'react'
 export function Input({label, value, onChange}){
     return (
       <label htmlFor = {label} >{label}*: <input
@@ -26,27 +26,21 @@ export function Input({label, value, onChange}){
     );
   }
   
-  export function Duration() {
-    const [isPresent, setIsPresent] = useState(false);
-  
-    function handlePresent() {
-      setIsPresent(!isPresent);
-    }
-  
+  export function Duration({ startDate, endDate, isPresent, onStartDateChange, onEndDateChange, onPresentChange }) {
     return (
       <div className='duration'>
         <label>
           Start date:
-          <input type="date" />
+          <input type="date" value={startDate} onChange={(e) => onStartDateChange(e.target.value)} />
         </label>
         <span> - </span>
         <label>
           End date:
-          <input id='endDate' type="date" disabled={isPresent} />
+          <input type="date" value={endDate} onChange={(e) => onEndDateChange(e.target.value)} disabled={isPresent} />
         </label>
         <label>
           Present:
-          <input id='present' type="checkbox" onChange={handlePresent} checked={isPresent} />
+          <input type="checkbox" checked={isPresent} onChange={onPresentChange} />
         </label>
       </div>
     );

@@ -26,7 +26,7 @@ export function CVPreview({ mainData, eduData, workData }) {
             <h2><strong>School: </strong>{edu.school}</h2>
             <h3><strong>Field of study: </strong>{edu.study}</h3>
             <p><strong>Description: </strong>{edu.description}</p>
-            <p><strong>Date: </strong>{edu.date}</p>
+            <p><strong>Date: </strong>{edu.startDate} - {edu.endDate}</p>
         </div>
     );
     return (
@@ -43,7 +43,7 @@ export function CVPreview({ mainData, eduData, workData }) {
             <h2><strong>Employer: </strong>{work.employer}</h2>
             <h3><strong>Field of work: </strong>{work.job}</h3>
             <p><strong>Description: </strong>{work.description}</p>
-            <p><strong>Date: </strong>{work.date}</p>
+            <p><strong>Date: </strong>{work.startDate} - {work.endDate}</p>
         </div>
     );
     return (
