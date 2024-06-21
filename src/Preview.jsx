@@ -58,6 +58,7 @@ export function EduEntries({eduData, eduDelCb}){
         <div key={edu.id} className="eduEntry">
             <h1>School: {edu.school} ID: {edu.id}</h1>
             <button onClick={() => {eduDelCb(edu.id)}}>Delete</button>
+            <button>Edit</button>
         </div>
     )
     return(
@@ -72,6 +73,7 @@ export function WorkEntries({workData, workDelCb}){
         <div key={job.id} className="eduEntry">
             <h1>Employer: {job.employer} ID: {job.id}</h1>
             <button onClick={() => {workDelCb(job.id)}}>Delete</button>
+            <button>Edit</button>
         </div>
     )
     return(

@@ -17,6 +17,14 @@ export function EduSection({ cb }) {
     const handleSubmit = () => {
       cb({ ...data, id: id });
       setId(id + 1);
+      setData({...data, 
+        school: '',
+        study: '',
+        description: '',
+        startDate: '',
+        endDate: '',
+        isPresent: false
+        })
     };
   
     const handleStartDateChange = (startDate) => {
@@ -82,6 +90,14 @@ export function EduSection({ cb }) {
     const handleSubmit = () => {
       cb({ ...data, id: id });
       setId(id + 1);
+      setData({...data, 
+        school: '',
+        study: '',
+        description: '',
+        startDate: '',
+        endDate: '',
+        isPresent: false
+        })
     };
   
     const handleStartDateChange = (startDate) => {
