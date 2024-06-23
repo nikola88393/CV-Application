@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { MainSection } from './MainSection'
-import { CVPreview, EduEntries, WorkEntries } from './Preview'
+import { CVPreview, WorkEntries } from './Preview'
 import './App.css'
 import { EduSection, WorkSection,  } from './HistorySection';
 
@@ -13,16 +13,32 @@ export function AppContainer(){
   });
   const [schools, setSchools] = useState([]);
   const [jobs, setJobs] = useState([]);
+  const [editData, setEditData] = useState(null);
 
   function handleDataUpdate(data) {
     setCvData(data);
   }
 
-  function handleSchoolsUpdate(school){
-    setSchools([...schools, school]);
+  function handleSchoolsUpdate(school) {
+    const index = schools.findIndex(s => s.id === school.id);
+
+    if (index !== -1) {
+      const updatedSchools = schools.map((s, i) => (i === index ? school : s));
+      setSchools(updatedSchools);
+    } else {
+      setSchools([...schools, school]);
+    }
+
+    setEditData(null);
   }
+
   function handleSchoolsDel(id){
     setSchools(schools.filter(school => school.id !== id));
+  }
+  function handleSchoolEdit(id){
+    const school = schools.filter(school => school.id === id);
+    console.log(school);
+    setEditData(school);
   }
 
   function handleJobsUpdate(job){
@@ -35,9 +51,9 @@ export function AppContainer(){
   return (
     <div className='app'>
       <MainSection cb={handleDataUpdate} />
-      <EduSection cb={handleSchoolsUpdate}/>
+      <EduSection cb={handleSchoolsUpdate} editData={editData} eduData={schools} eduDelCb={handleSchoolsDel} eduEditCb={handleSchoolEdit}/>
       <WorkSection cb={handleJobsUpdate}/>
-      <EduEntries eduData={schools} eduDelCb={handleSchoolsDel}/>
+      {/* <EduEntries eduData={schools} eduDelCb={handleSchoolsDel} eduEditCb={handleSchoolEdit}/> */}
       <WorkEntries workData={jobs} workDelCb={handleJobsDel}/>
       <CVPreview mainData={cvData} eduData={schools} workData={jobs} />
     </div>

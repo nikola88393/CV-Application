@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Input, Text, Duration } from './Inputs'
 import './App.css'
 
-export function EduSection({ cb }) {
+export function EduSection({ cb, editData, eduData, eduDelCb, eduEditCb}) {
     const [id, setId] = useState(0);
     const [data, setData] = useState({
       id: id,
@@ -13,20 +13,42 @@ export function EduSection({ cb }) {
       endDate: '',
       isPresent: false
     });
-  
+    
+    const education = eduData.map(edu => 
+      <div key={edu.id} className="eduEntry">
+          <h1>School: {edu.school} ID: {edu.id}</h1>
+          <button onClick={() => {eduDelCb(edu.id)}}>Delete</button>
+          <button onClick={() => {eduEditCb(edu.id)}}>Edit</button>
+      </div>
+  )
+
     const handleSubmit = () => {
-      cb({ ...data, id: id });
-      setId(id + 1);
-      setData({...data, 
-        school: '',
-        study: '',
-        description: '',
-        startDate: '',
-        endDate: '',
-        isPresent: false
-        })
+        if(editData !== null){
+            cb({ data });
+            setData({...data, 
+                school: '',
+                study: '',
+                description: '',
+                startDate: '',
+                endDate: '',
+                isPresent: false
+            })
+        }
+        else{
+            cb({ ...data, id: id });
+            setId(id + 1);
+            setData({...data, 
+                school: '',
+                study: '',
+                description: '',
+                startDate: '',
+                endDate: '',
+                isPresent: false
+              })
+        }
+      
     };
-  
+
     const handleStartDateChange = (startDate) => {
       setData(prevData => ({ ...prevData, startDate }));
     };
@@ -47,29 +69,32 @@ export function EduSection({ cb }) {
       <div className='inputSection'>
         <Input
           label={'School:'}
-          value={data.school}
+          value={editData !== null ? editData.school : data.school}
           onChange={e => setData({ ...data, school: e.target.value })}
         />
         <Input
           label={'Field of study:'}
-          value={data.study}
+          value={editData !== null ? editData.study : data.study}
           onChange={e => setData({ ...data, study: e.target.value })}
         />
         <Text
           placeholder={'Description:'}
-          value={data.description}
+          value={editData !== null ? editData.description: data.description}
           onChange={e => setData({ ...data, description: e.target.value })}
         />
         <Duration
-          startDate={data.startDate}
-          endDate={data.endDate}
-          isPresent={data.isPresent}
+          startDate={editData !== null ? editData.startDate : data.startDate}
+          endDate={editData !== null ? editData.endDate : data.endDate}
+          isPresent={editData !== null ? editData.isPresent : data.isPresent}
           onStartDateChange={handleStartDateChange}
           onEndDateChange={handleEndDateChange}
           onPresentChange={handlePresentChange}
         />
         <div className='sectionControls'>
           <button onClick={handleSubmit}>Submit</button>
+        </div>
+        <div className="eduEntries">
+            {education}
         </div>
       </div>
     );

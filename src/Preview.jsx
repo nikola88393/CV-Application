@@ -53,21 +53,6 @@ export function CVPreview({ mainData, eduData, workData }) {
       );
   }
 
-export function EduEntries({eduData, eduDelCb}){
-    let education = eduData.map(edu => 
-        <div key={edu.id} className="eduEntry">
-            <h1>School: {edu.school} ID: {edu.id}</h1>
-            <button onClick={() => {eduDelCb(edu.id)}}>Delete</button>
-            <button>Edit</button>
-        </div>
-    )
-    return(
-        <div className="eduEntries">
-            {education}
-        </div>
-    )
-}
-
 export function WorkEntries({workData, workDelCb}){
     let work = workData.map(job => 
         <div key={job.id} className="eduEntry">
