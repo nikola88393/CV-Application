@@ -52,18 +52,3 @@ export function CVPreview({ mainData, eduData, workData }) {
         </div>
       );
   }
-
-export function WorkEntries({workData, workDelCb}){
-    let work = workData.map(job => 
-        <div key={job.id} className="eduEntry">
-            <h1>Employer: {job.employer} ID: {job.id}</h1>
-            <button onClick={() => {workDelCb(job.id)}}>Delete</button>
-            <button>Edit</button>
-        </div>
-    )
-    return(
-        <div className="workEntries">
-            {work}
-        </div>
-    )
-}

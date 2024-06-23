@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { MainSection } from './MainSection'
-import { CVPreview, WorkEntries } from './Preview'
+import { CVPreview } from './Preview'
 import './App.css'
 import { EduSection, WorkSection,  } from './HistorySection';
 
@@ -13,7 +13,6 @@ export function AppContainer(){
   });
   const [schools, setSchools] = useState([]);
   const [jobs, setJobs] = useState([]);
-  const [editData, setEditData] = useState(null);
 
   function handleDataUpdate(data) {
     setCvData(data);
@@ -28,21 +27,21 @@ export function AppContainer(){
     } else {
       setSchools([...schools, school]);
     }
-
-    setEditData(null);
   }
 
   function handleSchoolsDel(id){
     setSchools(schools.filter(school => school.id !== id));
   }
-  function handleSchoolEdit(id){
-    const school = schools.filter(school => school.id === id);
-    console.log(school);
-    setEditData(school);
-  }
 
   function handleJobsUpdate(job){
-    setJobs([...jobs, job]);
+    const index = jobs.findIndex(s => s.id === job.id);
+
+    if (index !== -1) {
+      const updatedJobs = jobs.map((j, i) => (i === index ? job : j));
+      setJobs(updatedJobs);
+    } else {
+      setJobs([...jobs, job]);
+    }
   }
   function handleJobsDel(id){
     setJobs(jobs.filter(school => school.id !== id));
@@ -51,10 +50,8 @@ export function AppContainer(){
   return (
     <div className='app'>
       <MainSection cb={handleDataUpdate} />
-      <EduSection cb={handleSchoolsUpdate} editData={editData} eduData={schools} eduDelCb={handleSchoolsDel} eduEditCb={handleSchoolEdit}/>
-      <WorkSection cb={handleJobsUpdate}/>
-      {/* <EduEntries eduData={schools} eduDelCb={handleSchoolsDel} eduEditCb={handleSchoolEdit}/> */}
-      <WorkEntries workData={jobs} workDelCb={handleJobsDel}/>
+      <EduSection cb={handleSchoolsUpdate} eduData={schools} eduDelCb={handleSchoolsDel}/>
+      <WorkSection cb={handleJobsUpdate} workData={jobs} workDelCb={handleJobsDel}/>
       <CVPreview mainData={cvData} eduData={schools} workData={jobs} />
     </div>
   );
