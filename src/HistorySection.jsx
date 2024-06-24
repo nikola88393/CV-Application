@@ -2,12 +2,12 @@ import { useState } from 'react';
 import { Input, Text, Duration } from './Inputs';
 import './App.css';
 
-export function EduSection({ cb, eduData, eduDelCb }) {
+export function Section({ cb, data, delCb, labels, placeholders}) {
   const [id, setId] = useState(0);
-  const [data, setData] = useState({
+  const [formData, setFormData] = useState({
     id: id,
-    school: '',
-    study: '',
+    primary: '',
+    secondary: '',
     description: '',
     startDate: '',
     endDate: '',
@@ -16,21 +16,21 @@ export function EduSection({ cb, eduData, eduDelCb }) {
 
   const [isEditing, setIsEditing] = useState(false);
 
-  const education = eduData.map((edu) => (
-    <div key={edu.id} className="eduEntry">
+  const entries = data.map((item) => (
+    <div key={item.id} className="entry">
       <h1>
-        School: {edu.school} ID: {edu.id}
+        {labels.primary}: {item.primary} ID: {item.id}
       </h1>
       <button
         onClick={() => {
-          eduDelCb(edu.id);
+          delCb(item.id);
         }}
       >
         Delete
       </button>
       <button
         onClick={() => {
-          setData(edu);
+          setFormData(item);
           setIsEditing(true);
         }}
       >
@@ -41,19 +41,19 @@ export function EduSection({ cb, eduData, eduDelCb }) {
 
   const handleSubmit = () => {
     if (isEditing) {
-      cb(data);
+      cb(formData);
     } else {
-      cb({ ...data, id: id });
+      cb({ ...formData, id: id });
       setId(id + 1);
     }
     resetForm();
   };
 
   const resetForm = () => {
-    setData({
+    setFormData({
       id: id,
-      school: '',
-      study: '',
+      primary: '',
+      secondary: '',
       description: '',
       startDate: '',
       endDate: '',
@@ -63,15 +63,15 @@ export function EduSection({ cb, eduData, eduDelCb }) {
   };
 
   const handleStartDateChange = (startDate) => {
-    setData((prevData) => ({ ...prevData, startDate }));
+    setFormData((prevData) => ({ ...prevData, startDate }));
   };
 
   const handleEndDateChange = (endDate) => {
-    setData((prevData) => ({ ...prevData, endDate }));
+    setFormData((prevData) => ({ ...prevData, endDate }));
   };
 
   const handlePresentChange = () => {
-    setData((prevData) => ({
+    setFormData((prevData) => ({
       ...prevData,
       isPresent: !prevData.isPresent,
       endDate: !prevData.isPresent ? 'Present' : '',
@@ -80,27 +80,30 @@ export function EduSection({ cb, eduData, eduDelCb }) {
 
   return (
     <div className="inputSection">
-      {isEditing && <div>Editing entry: School - <strong>{data.school}
-      </strong> ID - <strong>{data.id}</strong></div> }
+      {isEditing && (
+        <div>
+          Editing entry: {labels.primary} - <strong>{formData.primary}</strong> ID - <strong>{formData.id}</strong>
+        </div>
+      )}
       <Input
-        label={'School:'}
-        value={data.school}
-        onChange={(e) => setData({ ...data, school: e.target.value })}
+        label={`${labels.primary}:`}
+        value={formData.primary}
+        onChange={(e) => setFormData({ ...formData, primary: e.target.value })}
       />
       <Input
-        label={'Field of study:'}
-        value={data.study}
-        onChange={(e) => setData({ ...data, study: e.target.value })}
+        label={`${labels.secondary}:`}
+        value={formData.secondary}
+        onChange={(e) => setFormData({ ...formData, secondary: e.target.value })}
       />
       <Text
-        placeholder={'Description:'}
-        value={data.description}
-        onChange={(e) => setData({ ...data, description: e.target.value })}
+        placeholder={placeholders.description}
+        value={formData.description}
+        onChange={(e) => setFormData({ ...formData, description: e.target.value })}
       />
       <Duration
-        startDate={data.startDate}
-        endDate={data.endDate}
-        isPresent={data.isPresent}
+        startDate={formData.startDate}
+        endDate={formData.endDate}
+        isPresent={formData.isPresent}
         onStartDateChange={handleStartDateChange}
         onEndDateChange={handleEndDateChange}
         onPresentChange={handlePresentChange}
@@ -108,107 +111,35 @@ export function EduSection({ cb, eduData, eduDelCb }) {
       <div className="sectionControls">
         <button onClick={handleSubmit}>{isEditing ? 'Update' : 'Submit'}</button>
       </div>
-      <div className="eduEntries">{education}</div>
+      <div className="entries">{entries}</div>
     </div>
   );
 }
 
-export function WorkSection({ cb, workData, workDelCb }) {
-  const [id, setId] = useState(0);
-  const [data, setData] = useState({
-    id: id,
-    employer: '',
-    job: '',
-    description: '',
-    startDate: '',
-    endDate: '',
-    isPresent: false,
-  });
-  const [isEditing, setIsEditing] = useState(false);
-
-  const work = workData.map(job => 
-    <div key={job.id} className="eduEntry">
-        <h1>Employer: {job.employer} ID: {job.id}</h1>
-        <button onClick={() => {workDelCb(job.id)}}>Delete</button>
-        <button onClick={() => {
-          setData(job);
-          setIsEditing(true);
-          }}>Edit</button>
-    </div>
-)
-
-  const handleSubmit = () => {
-    if (isEditing) {
-      cb(data);
-    } else {
-      cb({ ...data, id: id });
-      setId(id + 1);
-    }
-    resetForm();
-  };
-
-  const resetForm = () => {
-    setData({
-      id: id,
-      employer: '',
-      job: '',
-      description: '',
-      startDate: '',
-      endDate: '',
-      isPresent: false,
-    });
-    setIsEditing(false);
-  };
-
-  const handleStartDateChange = (startDate) => {
-    setData((prevData) => ({ ...prevData, startDate }));
-  };
-
-  const handleEndDateChange = (endDate) => {
-    setData((prevData) => ({ ...prevData, endDate }));
-  };
-
-  const handlePresentChange = () => {
-    setData((prevData) => ({
-      ...prevData,
-      isPresent: !prevData.isPresent,
-      endDate: !prevData.isPresent ? 'Present' : '',
-    }));
-  };
-
+// Example usage for EduSection
+export function EduSection({ cb, eduData, eduDelCb }) {
   return (
-    <div className="inputSection">
-      {isEditing && <div>Editing entry: Employer - <strong>{data.employer}
-        </strong> ID - <strong>{data.id}</strong></div> }
-      <Input
-        label={'Employer:'}
-        value={data.employer}
-        onChange={(e) => setData({ ...data, employer: e.target.value })}
-      />
-      <Input
-        label={'Field of work:'}
-        value={data.job}
-        onChange={(e) => setData({ ...data, job: e.target.value })}
-      />
-      <Text
-        placeholder={'Description:'}
-        value={data.description}
-        onChange={(e) => setData({ ...data, description: e.target.value })}
-      />
-      <Duration
-        startDate={data.startDate}
-        endDate={data.endDate}
-        isPresent={data.isPresent}
-        onStartDateChange={handleStartDateChange}
-        onEndDateChange={handleEndDateChange}
-        onPresentChange={handlePresentChange}
-      />
-      <div className="sectionControls">
-        <button onClick={handleSubmit}>{isEditing ? 'Update' : 'Submit'}</button>
-      </div>
-      <div className="workEntries">
-            {work}
-        </div>
-    </div>
+    <Section
+      cb={cb}
+      data={eduData}
+      delCb={eduDelCb}
+      labels={{ primary: 'School', secondary: 'Field of study' }}
+      placeholders={{ description: 'Description' }}
+      entity="education"
+    />
+  );
+}
+
+// Example usage for WorkSection
+export function WorkSection({ cb, workData, workDelCb }) {
+  return (
+    <Section
+      cb={cb}
+      data={workData}
+      delCb={workDelCb}
+      labels={{ primary: 'Employer', secondary: 'Job Title' }}
+      placeholders={{ description: 'Job Description' }}
+      entity="work"
+    />
   );
 }

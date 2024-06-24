@@ -23,8 +23,8 @@ export function CVPreview({ mainData, eduData, workData }) {
     const education = eduData.map(edu => 
         <div key={edu.id} className="eduEntryPreview">
             <h1>Id: {edu.id}</h1>
-            <h2><strong>School: </strong>{edu.school}</h2>
-            <h3><strong>Field of study: </strong>{edu.study}</h3>
+            <h2><strong>School: </strong>{edu.primary}</h2>
+            <h3><strong>Field of study: </strong>{edu.secondary}</h3>
             <p><strong>Description: </strong>{edu.description}</p>
             <p><strong>Date: </strong>{edu.startDate} - {edu.endDate}</p>
         </div>
@@ -40,8 +40,8 @@ export function CVPreview({ mainData, eduData, workData }) {
     const jobs = workData.map(work => 
         <div key={work.id} className="workEntryPreview">
             <h1>Id: {work.id}</h1>
-            <h2><strong>Employer: </strong>{work.employer}</h2>
-            <h3><strong>Field of work: </strong>{work.job}</h3>
+            <h2><strong>Employer: </strong>{work.primary}</h2>
+            <h3><strong>Field of work: </strong>{work.secondary}</h3>
             <p><strong>Description: </strong>{work.description}</p>
             <p><strong>Date: </strong>{work.startDate} - {work.endDate}</p>
         </div>
