@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { Input, Text, Duration } from './Inputs';
 import './App.css';
 
-export function Section({ cb, data, delCb, labels, placeholders}) {
+export function Section({ cb, data, delCb, labels, placeholders }) {
   const [id, setId] = useState(0);
-  const [formFill, setFormFill] = useState(false);
+  const [error, setError] = useState('All fields are required.');
   const [formData, setFormData] = useState({
     id: id,
     primary: '',
@@ -40,28 +40,22 @@ export function Section({ cb, data, delCb, labels, placeholders}) {
     </div>
   ));
 
-  function checkFormFill() {
-    const { primary, secondary, description, startDate, endDate, isPresent } = formData;
-    if (primary && secondary && description && startDate && (isPresent || endDate)) {
-      setFormFill(true);
-    } else {
-      setFormFill(false);
-    }
-  }
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (isEditing) {
-      cb(formData);
-    } else {
-      cb({ ...formData, id: id });
-      setId(id + 1);
+    if (!error) {
+      if (isEditing) {
+        cb(formData);
+      } else {
+        cb({ ...formData, id: id });
+        setId(id + 1);
+      }
+      resetForm();
     }
-    resetForm();
   };
 
   const resetForm = () => {
     setFormData({
-      id: id,
+      id: id + 1,
       primary: '',
       secondary: '',
       description: '',
@@ -70,17 +64,23 @@ export function Section({ cb, data, delCb, labels, placeholders}) {
       isPresent: false,
     });
     setIsEditing(false);
-    setFormFill(false);
+    setError('');
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const handleStartDateChange = (startDate) => {
     setFormData((prevData) => ({ ...prevData, startDate }));
-    checkFormFill();
   };
 
   const handleEndDateChange = (endDate) => {
     setFormData((prevData) => ({ ...prevData, endDate }));
-    checkFormFill();
   };
 
   const handlePresentChange = () => {
@@ -89,53 +89,50 @@ export function Section({ cb, data, delCb, labels, placeholders}) {
       isPresent: !prevData.isPresent,
       endDate: !prevData.isPresent ? 'Present' : '',
     }));
-    checkFormFill();
   };
 
   return (
     <div className="inputSection">
-      <form action="#">
-      {isEditing && (
-        <div>
-          Editing entry: {labels.primary} - <strong>{formData.primary}</strong> ID - <strong>{formData.id}</strong>
+      <form action="#" onSubmit={handleSubmit}>
+        {isEditing && (
+          <div>
+            Editing entry: {labels.primary} - <strong>{formData.primary}</strong> ID - <strong>{formData.id}</strong>
+          </div>
+        )}
+        <Input
+          name="primary"
+          label={`${labels.primary}:`}
+          value={formData.primary}
+          onChange={handleInputChange}
+        />
+        <Input
+          name="secondary"
+          label={`${labels.secondary}:`}
+          value={formData.secondary}
+          onChange={handleInputChange}
+        />
+        <Text
+          name="description"
+          placeholder={placeholders.description}
+          value={formData.description}
+          onChange={handleInputChange}
+        />
+        <Duration
+          name='duration'
+          startDate={formData.startDate}
+          endDate={formData.endDate}
+          isPresent={formData.isPresent}
+          onStartDateChange={handleStartDateChange}
+          onEndDateChange={handleEndDateChange}
+          onPresentChange={handlePresentChange}
+          setDurationError={setError}
+        />
+        <div className="sectionControls">
+          <button type="submit" disabled={!!error}>
+            {isEditing ? 'Update' : 'Submit'}
+          </button>
+          <span>{error}</span>
         </div>
-      )}
-      <Input
-        label={`${labels.primary}:`}
-        value={formData.primary}
-        onChange={(e) => {
-          setFormData({ ...formData, primary: e.target.value });
-          checkFormFill();
-        }}
-      />
-      <Input
-        label={`${labels.secondary}:`}
-        value={formData.secondary}
-        onChange={(e) => {
-          setFormData({ ...formData, secondary: e.target.value });
-          checkFormFill();
-        }}
-      />
-      <Text
-        placeholder={placeholders.description}
-        value={formData.description}
-        onChange={(e) => {
-          setFormData({ ...formData, description: e.target.value });
-          checkFormFill();
-        }}
-      />
-      <Duration
-        startDate={formData.startDate}
-        endDate={formData.endDate}
-        isPresent={formData.isPresent}
-        onStartDateChange={handleStartDateChange}
-        onEndDateChange={handleEndDateChange}
-        onPresentChange={handlePresentChange}
-      />
-      <div className="sectionControls">
-        <button onClick={handleSubmit} disabled = {!formFill}>{isEditing ? 'Update' : 'Submit'}</button>
-        <span>{!formFill ? 'Please fill out every field' : ''}</span>
-      </div>
       </form>
       <div className="entries">{entries}</div>
     </div>

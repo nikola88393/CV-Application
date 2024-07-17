@@ -1,21 +1,20 @@
-// import { useState } from 'react'
-export function Input({label, value, onChange}){
+export function Input({name, label, value, onChange}){
     return (
       <label htmlFor = {label} >{label}*: <input
       type="text"
       value={value}
       id={label}
-      name={label}
+      name={name}
       onChange={onChange}
       required
     /></label>
     );
   }
   
-  export function Text({placeholder, value, onChange}){
+  export function Text({name, placeholder, value, onChange}){
     return (
       <textarea
-      name={placeholder}
+      name={name}
       value={value}
       rows="5"
       cols="30"
@@ -26,22 +25,54 @@ export function Input({label, value, onChange}){
     );
   }
   
-  export function Duration({ startDate, endDate, isPresent, onStartDateChange, onEndDateChange, onPresentChange }) {
+  export function Duration({ name, startDate, endDate, isPresent, onStartDateChange, onEndDateChange, onPresentChange, setDurationError }) {
+    const validateDates = (start, end, present) => {
+      if (!start) {
+        setDurationError('Start date is required.');
+        return false;
+      } else if (!present && !end) {
+        setDurationError('End date is required if not present.');
+        return false;
+      } else if (start && end && new Date(start) > new Date(end)) {
+        setDurationError('Start date must be before end date.');
+        return false;
+      } else {
+        setDurationError('');
+        return true;
+      }
+    };
+  
+    const handleStartDateChange = (value) => {
+      onStartDateChange(value);
+      validateDates(value, endDate, isPresent);
+    };
+  
+    const handleEndDateChange = (value) => {
+      onEndDateChange(value);
+      validateDates(startDate, value, isPresent);
+    };
+  
+    const handlePresentChange = () => {
+      onPresentChange();
+      validateDates(startDate, endDate, !isPresent);
+    };
+  
     return (
-      <div className='duration'>
+      <div className="duration">
         <label>
           Start date:
-          <input type="date" value={startDate} onChange={(e) => onStartDateChange(e.target.value)} />
+          <input name={name} type="date" value={startDate} onChange={(e) => handleStartDateChange(e.target.value)} />
         </label>
         <span> - </span>
         <label>
           End date:
-          <input type="date" value={endDate} onChange={(e) => onEndDateChange(e.target.value)} disabled={isPresent} />
+          <input name={name} type="date" value={endDate} onChange={(e) => handleEndDateChange(e.target.value)} disabled={isPresent} />
         </label>
         <label>
           Present:
-          <input type="checkbox" checked={isPresent} onChange={onPresentChange} />
+          <input name={name} type="checkbox" checked={isPresent} onChange={handlePresentChange} />
         </label>
       </div>
     );
   }
+  
