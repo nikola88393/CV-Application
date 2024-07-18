@@ -92,6 +92,7 @@ export function Section({ cb, data, delCb, labels, placeholders }) {
 
   return (
     <div className="inputSection">
+      <h2 className="sectionHeader">{labels.title}</h2>
       <form action="#" onSubmit={handleSubmit} className="formSection">
         {isEditing && (
           <div>
@@ -144,7 +145,11 @@ export function EduSection({ cb, eduData, eduDelCb }) {
       cb={cb}
       data={eduData}
       delCb={eduDelCb}
-      labels={{ primary: "School", secondary: "Field of study" }}
+      labels={{
+        primary: "School",
+        secondary: "Field of study",
+        title: "Education section",
+      }}
       placeholders={{ description: "Description" }}
       entity="education"
     />
@@ -157,7 +162,11 @@ export function WorkSection({ cb, workData, workDelCb }) {
       cb={cb}
       data={workData}
       delCb={workDelCb}
-      labels={{ primary: "Employer", secondary: "Job Title" }}
+      labels={{
+        primary: "Employer",
+        secondary: "Job Title",
+        title: "Work section",
+      }}
       placeholders={{ description: "Job Description" }}
       entity="work"
     />

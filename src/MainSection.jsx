@@ -30,6 +30,7 @@ export function MainSection({ cb }) {
 
   return (
     <div className="inputSection">
+      <h2 className="sectionHeader">Main section</h2>
       <form action="#" className="formSection" onSubmit={handleSubmit}>
         <Input
           name="name"
