@@ -78,7 +78,6 @@ export function Duration({
           onChange={(e) => handleStartDateChange(e.target.value)}
         />
       </label>
-      <span> - </span>
       <label>
         End date:
         <input
