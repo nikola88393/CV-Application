@@ -1,17 +1,16 @@
-import { useState } from 'react';
-import { Input, Text, Duration } from './Inputs';
-import './App.css';
+import { useState } from "react";
+import { Input, Text, Duration } from "./Inputs";
 
 export function Section({ cb, data, delCb, labels, placeholders }) {
   const [id, setId] = useState(0);
-  const [error, setError] = useState('All fields are required.');
+  const [error, setError] = useState("All fields are required.");
   const [formData, setFormData] = useState({
     id: id,
-    primary: '',
-    secondary: '',
-    description: '',
-    startDate: '',
-    endDate: '',
+    primary: "",
+    secondary: "",
+    description: "",
+    startDate: "",
+    endDate: "",
     isPresent: false,
   });
 
@@ -56,15 +55,15 @@ export function Section({ cb, data, delCb, labels, placeholders }) {
   const resetForm = () => {
     setFormData({
       id: id + 1,
-      primary: '',
-      secondary: '',
-      description: '',
-      startDate: '',
-      endDate: '',
+      primary: "",
+      secondary: "",
+      description: "",
+      startDate: "",
+      endDate: "",
       isPresent: false,
     });
     setIsEditing(false);
-    setError('');
+    setError("");
   };
 
   const handleInputChange = (e) => {
@@ -87,16 +86,18 @@ export function Section({ cb, data, delCb, labels, placeholders }) {
     setFormData((prevData) => ({
       ...prevData,
       isPresent: !prevData.isPresent,
-      endDate: !prevData.isPresent ? 'Present' : '',
+      endDate: !prevData.isPresent ? "Present" : "",
     }));
   };
 
   return (
     <div className="inputSection">
-      <form action="#" onSubmit={handleSubmit}>
+      <form action="#" onSubmit={handleSubmit} className="formSection">
         {isEditing && (
           <div>
-            Editing entry: {labels.primary} - <strong>{formData.primary}</strong> ID - <strong>{formData.id}</strong>
+            Editing entry: {labels.primary} -{" "}
+            <strong>{formData.primary}</strong> ID -{" "}
+            <strong>{formData.id}</strong>
           </div>
         )}
         <Input
@@ -118,7 +119,7 @@ export function Section({ cb, data, delCb, labels, placeholders }) {
           onChange={handleInputChange}
         />
         <Duration
-          name='duration'
+          name="duration"
           startDate={formData.startDate}
           endDate={formData.endDate}
           isPresent={formData.isPresent}
@@ -127,12 +128,10 @@ export function Section({ cb, data, delCb, labels, placeholders }) {
           onPresentChange={handlePresentChange}
           setDurationError={setError}
         />
-        <div className="sectionControls">
-          <button type="submit" disabled={!!error}>
-            {isEditing ? 'Update' : 'Submit'}
-          </button>
-          <span>{error}</span>
-        </div>
+        <button type="submit" disabled={!!error}>
+          {isEditing ? "Update" : "Submit"}
+        </button>
+        <span>{error}</span>
       </form>
       <div className="entries">{entries}</div>
     </div>
@@ -145,8 +144,8 @@ export function EduSection({ cb, eduData, eduDelCb }) {
       cb={cb}
       data={eduData}
       delCb={eduDelCb}
-      labels={{ primary: 'School', secondary: 'Field of study' }}
-      placeholders={{ description: 'Description' }}
+      labels={{ primary: "School", secondary: "Field of study" }}
+      placeholders={{ description: "Description" }}
       entity="education"
     />
   );
@@ -158,8 +157,8 @@ export function WorkSection({ cb, workData, workDelCb }) {
       cb={cb}
       data={workData}
       delCb={workDelCb}
-      labels={{ primary: 'Employer', secondary: 'Job Title' }}
-      placeholders={{ description: 'Job Description' }}
+      labels={{ primary: "Employer", secondary: "Job Title" }}
+      placeholders={{ description: "Job Description" }}
       entity="work"
     />
   );
