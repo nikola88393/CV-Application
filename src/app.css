@@ -84,3 +84,32 @@ textarea {
   flex-direction: column;
   gap: 5px;
 }
+.entries {
+  border: 1px solid red;
+  width: 100%;
+  padding: 10px;
+}
+.entry {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.entryOptions {
+  display: flex;
+  gap: 10px;
+}
+.btn {
+  height: 30px;
+  width: 70px;
+  border-radius: 4px;
+  border: none;
+  background-color: rgb(42, 127, 255);
+  color: white;
+  font-weight: 700;
+}
+.btn:hover {
+  opacity: 0.9;
+}
+.btn.danger {
+  background-color: rgb(252, 36, 36);
+}

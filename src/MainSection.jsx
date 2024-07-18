@@ -56,7 +56,7 @@ export function MainSection({ cb }) {
           value={data.intro}
           onChange={handleInputChange}
         ></Text>
-        <button type="submit" disabled={!!error}>
+        <button className="btn" type="submit" disabled={!!error}>
           Submit
         </button>
         <span>{error ? error : ""}</span>

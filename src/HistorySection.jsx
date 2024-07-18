@@ -18,24 +18,28 @@ export function Section({ cb, data, delCb, labels, placeholders }) {
 
   const entries = data.map((item) => (
     <div key={item.id} className="entry">
-      <h1>
+      <h3>
         {labels.primary}: {item.primary} ID: {item.id}
-      </h1>
-      <button
-        onClick={() => {
-          delCb(item.id);
-        }}
-      >
-        Delete
-      </button>
-      <button
-        onClick={() => {
-          setFormData(item);
-          setIsEditing(true);
-        }}
-      >
-        Edit
-      </button>
+      </h3>
+      <div className="entryOptions">
+        <button
+          className="btn"
+          onClick={() => {
+            delCb(item.id);
+          }}
+        >
+          Delete
+        </button>
+        <button
+          className="btn danger"
+          onClick={() => {
+            setFormData(item);
+            setIsEditing(true);
+          }}
+        >
+          Edit
+        </button>
+      </div>
     </div>
   ));
 
@@ -129,7 +133,7 @@ export function Section({ cb, data, delCb, labels, placeholders }) {
           onPresentChange={handlePresentChange}
           setDurationError={setError}
         />
-        <button type="submit" disabled={!!error}>
+        <button className="btn" type="submit" disabled={!!error}>
           {isEditing ? "Update" : "Submit"}
         </button>
         <span>{error}</span>
