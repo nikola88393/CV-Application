@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 .app {
   display: flex;
@@ -85,14 +86,14 @@ textarea {
   gap: 5px;
 }
 .entries {
-  border: 1px solid red;
   width: 100%;
-  padding: 10px;
+  /* padding: 10px; */
 }
 .entry {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 10px;
 }
 .entryOptions {
   display: flex;
@@ -110,6 +111,28 @@ textarea {
 .btn:hover {
   opacity: 0.9;
 }
+.btn:disabled {
+  opacity: 0.4;
+}
 .btn.danger {
   background-color: rgb(252, 36, 36);
+}
+.textInput {
+  height: 30px;
+  padding: 10px;
+  border: 1px solid lightgray;
+  border-radius: 4px;
+  outline: none;
+}
+.textBox {
+  border: 1px solid lightgray;
+  border-radius: 4px;
+  padding: 10px;
+  outline: none;
+}
+.textInput:active,
+.textInput:focus,
+.textBox:active,
+.textBox:focus {
+  border: 1px solid gray;
 }

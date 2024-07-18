@@ -107,13 +107,13 @@ export function Section({ cb, data, delCb, labels, placeholders }) {
         )}
         <Input
           name="primary"
-          label={`${labels.primary}:`}
+          label={`${labels.primary}`}
           value={formData.primary}
           onChange={handleInputChange}
         />
         <Input
           name="secondary"
-          label={`${labels.secondary}:`}
+          label={`${labels.secondary}`}
           value={formData.secondary}
           onChange={handleInputChange}
         />

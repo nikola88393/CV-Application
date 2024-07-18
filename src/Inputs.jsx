@@ -1,6 +1,7 @@
 export function Input({ name, label, value, onChange }) {
   return (
     <input
+      className="textInput"
       type="text"
       value={value}
       id={label}
@@ -15,6 +16,7 @@ export function Input({ name, label, value, onChange }) {
 export function Text({ name, placeholder, value, onChange }) {
   return (
     <textarea
+      className="textBox"
       name={name}
       value={value}
       rows="5"
