@@ -23,7 +23,7 @@ export function Section({ cb, data, delCb, labels, placeholders }) {
       </h3>
       <div className="entryOptions">
         <button
-          className="btn"
+          className="btn danger"
           onClick={() => {
             delCb(item.id);
           }}
@@ -31,7 +31,7 @@ export function Section({ cb, data, delCb, labels, placeholders }) {
           Delete
         </button>
         <button
-          className="btn danger"
+          className="btn"
           onClick={() => {
             setFormData(item);
             setIsEditing(true);

@@ -55,12 +55,12 @@ function EduPreview({ eduData }) {
         {edu.secondary}
       </h3>
       <p>
-        <strong>Description: </strong>
-        {edu.description}
-      </p>
-      <p>
         <strong>Date: </strong>
         {edu.startDate} - {edu.endDate}
+      </p>
+      <p>
+        <strong>Description: </strong>
+        {edu.description}
       </p>
     </div>
   ));
@@ -81,12 +81,12 @@ function WorkPreview({ workData }) {
         {work.secondary}
       </h3>
       <p>
-        <strong>Description: </strong>
-        {work.description}
-      </p>
-      <p>
         <strong>Date: </strong>
         {work.startDate} - {work.endDate}
+      </p>
+      <p>
+        <strong>Description: </strong>
+        {work.description}
       </p>
     </div>
   ));
