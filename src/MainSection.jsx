@@ -10,6 +10,14 @@ export function MainSection({ cb }) {
     intro: "",
   });
 
+  const exampleData = {
+    name: "John Doe",
+    email: "JohnDoe@example.com",
+    phone: "+359 11 2222 333",
+    intro:
+      "Highly skilled and motivated software engineer with over 8 years of experience in developing and maintaining software applications. Proficient in a variety of programming languages and technologies, with a strong background in full-stack development, system design, and agile methodologies. Passionate about solving complex problems and delivering high-quality software solutions.",
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     cb(data);
@@ -28,6 +36,9 @@ export function MainSection({ cb }) {
     }
   };
 
+  const loadExample = () => {
+    setData(exampleData);
+  };
   return (
     <div className="inputSection">
       <h2 className="sectionHeader">Main section</h2>
@@ -56,9 +67,14 @@ export function MainSection({ cb }) {
           value={data.intro}
           onChange={handleInputChange}
         ></Text>
-        <button className="btn" type="submit" disabled={!!error}>
-          Submit
-        </button>
+        <div className="sectionOptions">
+          <button className="btn" type="submit" disabled={!!error}>
+            Submit
+          </button>
+          <button className="btn" onClick={loadExample}>
+            Load Example
+          </button>
+        </div>
         <span>{error ? error : ""}</span>
       </form>
     </div>
