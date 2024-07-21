@@ -39,6 +39,17 @@ export function MainSection({ cb }) {
   const loadExample = () => {
     setData(exampleData);
   };
+
+  const clearForm = () => {
+    setData({
+      name: "",
+      email: "",
+      phone: "",
+      intro: "",
+    });
+    setError("All fields are required.");
+  };
+
   return (
     <div className="inputSection">
       <h2 className="sectionHeader">Main section</h2>
@@ -73,6 +84,9 @@ export function MainSection({ cb }) {
           </button>
           <button className="btn" onClick={loadExample}>
             Load Example
+          </button>
+          <button type="button" className="btn danger" onClick={clearForm}>
+            Clear Form
           </button>
         </div>
         <span>{error ? error : ""}</span>
