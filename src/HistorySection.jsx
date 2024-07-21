@@ -1,7 +1,14 @@
 import { useState } from "react";
 import { Input, Text, Duration } from "./Inputs";
 
-export function Section({ cb, data, delCb, labels, placeholders }) {
+export function Section({
+  cb,
+  data,
+  delCb,
+  labels,
+  placeholders,
+  exampleData,
+}) {
   const [id, setId] = useState(0);
   const [error, setError] = useState("All fields are required.");
   const [formData, setFormData] = useState({
@@ -94,6 +101,11 @@ export function Section({ cb, data, delCb, labels, placeholders }) {
     }));
   };
 
+  const loadExample = () => {
+    setFormData(exampleData);
+    cb(exampleData);
+  };
+
   return (
     <div className="inputSection">
       <h2 className="sectionHeader">{labels.title}</h2>
@@ -101,8 +113,7 @@ export function Section({ cb, data, delCb, labels, placeholders }) {
         {isEditing && (
           <div>
             Editing entry: {labels.primary} -{" "}
-            <strong>{formData.primary}</strong> ID -{" "}
-            <strong>{formData.id}</strong>
+            <strong>{formData.primary}</strong>
           </div>
         )}
         <Input
@@ -136,6 +147,9 @@ export function Section({ cb, data, delCb, labels, placeholders }) {
         <button className="btn" type="submit" disabled={!!error}>
           {isEditing ? "Update" : "Submit"}
         </button>
+        <button className="btn" type="button" onClick={loadExample}>
+          Load Example
+        </button>
         <span>{error}</span>
       </form>
       <div className="entries">{entries}</div>
@@ -144,6 +158,15 @@ export function Section({ cb, data, delCb, labels, placeholders }) {
 }
 
 export function EduSection({ cb, eduData, eduDelCb }) {
+  const exampleData = {
+    primary: "University of Anytown, USA",
+    secondary: "Bachelor of Science in Computer Science",
+    description:
+      "Assisted in the development of front-end and back-end components for web applications. Wrote unit and integration tests to ensure software quality and reliability. Collaborated with senior developers to learn and apply best practices in coding and design. Participated in code reviews and contributed to the improvement of the development process. Gained experience with cloud services and containerization technologies.",
+    startDate: "2017-09-15",
+    endDate: "2021-05-30",
+    isPresent: false,
+  };
   return (
     <Section
       cb={cb}
@@ -154,6 +177,7 @@ export function EduSection({ cb, eduData, eduDelCb }) {
         secondary: "Field of study",
         title: "Education section",
       }}
+      exampleData={exampleData}
       placeholders={{ description: "Description" }}
       entity="education"
     />
@@ -161,6 +185,16 @@ export function EduSection({ cb, eduData, eduDelCb }) {
 }
 
 export function WorkSection({ cb, workData, workDelCb }) {
+  const exampleData = {
+    primary: "Tech Solutions Inc., Anytown, USA",
+    secondary: "Senior Software Engineer",
+    description:
+      "Lead the development of scalable web applications using Java, Spring Boot, and React. Design and implement RESTful APIs to support front-end applications. Collaborate with cross-functional teams to gather requirements and deliver software solutions that meet business needs. Mentor junior developers and conduct code reviews to ensure adherence to best practices. Implement CI/CD pipelines using Jenkins and Docker to streamline the deployment process. Perform system analysis and optimize application performance.",
+    startDate: "2022-07-12",
+    endDate: "",
+    isPresent: true,
+  };
+
   return (
     <Section
       cb={cb}
@@ -171,6 +205,7 @@ export function WorkSection({ cb, workData, workDelCb }) {
         secondary: "Job Title",
         title: "Work section",
       }}
+      exampleData={exampleData}
       placeholders={{ description: "Job Description" }}
       entity="work"
     />
