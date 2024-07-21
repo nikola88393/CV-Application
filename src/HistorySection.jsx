@@ -103,17 +103,25 @@ export function Section({
 
   const loadExample = () => {
     setFormData(exampleData);
-    cb(exampleData);
+    cb({ ...exampleData, id: id });
+    setId(id + 1);
+    resetForm();
   };
 
   return (
     <div className="inputSection">
       <h2 className="sectionHeader">{labels.title}</h2>
-      <form action="#" onSubmit={handleSubmit} className="formSection">
+      <form
+        action="#"
+        onSubmit={handleSubmit}
+        className="formSection"
+        id="sectionForm"
+      >
         {isEditing && (
           <div>
             Editing entry: {labels.primary} -{" "}
             <strong>{formData.primary}</strong>
+            {"; ID: "} <strong>{formData.id}</strong>
           </div>
         )}
         <Input
@@ -144,12 +152,14 @@ export function Section({
           onPresentChange={handlePresentChange}
           setDurationError={setError}
         />
-        <button className="btn" type="submit" disabled={!!error}>
-          {isEditing ? "Update" : "Submit"}
-        </button>
-        <button className="btn" type="button" onClick={loadExample}>
-          Load Example
-        </button>
+        <div className="sectionOptions">
+          <button className="btn" type="submit" disabled={!!error}>
+            {isEditing ? "Update" : "Submit"}
+          </button>
+          <button className="btn" type="button" onClick={loadExample}>
+            Load Example
+          </button>
+        </div>
         <span>{error}</span>
       </form>
       <div className="entries">{entries}</div>
