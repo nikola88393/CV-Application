@@ -56,7 +56,7 @@ function EduPreview({ eduData }) {
       </h3>
       <p>
         <strong>Date: </strong>
-        {edu.startDate} - {edu.endDate}
+        {edu.startDate} - {edu.endDate !== "" ? edu.endDate : "Present"}
       </p>
       <p>
         <strong>Description: </strong>
@@ -82,7 +82,7 @@ function WorkPreview({ workData }) {
       </h3>
       <p>
         <strong>Date: </strong>
-        {work.startDate} - {work.endDate}
+        {work.startDate} - {work.endDate !== "" ? work.endDate : "Present"}
       </p>
       <p>
         <strong>Description: </strong>

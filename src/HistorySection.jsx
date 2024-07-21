@@ -97,7 +97,6 @@ export function Section({
     setFormData((prevData) => ({
       ...prevData,
       isPresent: !prevData.isPresent,
-      endDate: !prevData.isPresent ? "Present" : "",
     }));
   };
 
@@ -183,8 +182,8 @@ export function EduSection({ cb, eduData, eduDelCb }) {
       data={eduData}
       delCb={eduDelCb}
       labels={{
-        primary: "School",
-        secondary: "Field of study",
+        primary: "Field of study",
+        secondary: "School",
         title: "Education section",
       }}
       exampleData={exampleData}
@@ -211,8 +210,8 @@ export function WorkSection({ cb, workData, workDelCb }) {
       data={workData}
       delCb={workDelCb}
       labels={{
-        primary: "Employer",
-        secondary: "Job Title",
+        primary: "Job Title",
+        secondary: "Employer",
         title: "Work section",
       }}
       exampleData={exampleData}
