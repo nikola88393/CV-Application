@@ -162,10 +162,9 @@ textarea {
 .imageContainer {
   width: 150px;
   height: 200px;
-  border: 1px solid red;
 }
 .imageContainer img {
-  object-fit: contain;
+  object-fit: cover;
   width: 100%;
   height: 100%;
 }

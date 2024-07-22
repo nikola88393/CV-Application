@@ -4,6 +4,7 @@ import {
   faPhone,
   faBuildingColumns,
   faBriefcase,
+  faHouseUser,
 } from "@fortawesome/free-solid-svg-icons";
 export function CVPreview({ mainData, imageUrl, eduData, workData }) {
   return (
@@ -37,6 +38,12 @@ function MainPreview({ mainData }) {
               <FontAwesomeIcon icon={faEnvelope} />
             </strong>{" "}
             {mainData.email}
+          </p>
+          <p>
+            <strong>
+              <FontAwesomeIcon icon={faHouseUser} />
+            </strong>{" "}
+            {mainData.address}
           </p>
           <p>
             <strong>

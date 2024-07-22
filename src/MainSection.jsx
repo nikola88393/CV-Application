@@ -7,6 +7,7 @@ export function MainSection({ cb }) {
     imageUrl: "",
     name: "",
     email: "",
+    address: "",
     phone: "",
     intro: "",
   });
@@ -22,6 +23,7 @@ export function MainSection({ cb }) {
     imageUrl: "src/assets/J0k1DN1T_400x400.jpg",
     name: "John Doe",
     email: "JohnDoe@example.com",
+    address: "Suite 365 8410 Marlo Key, Caspermouth, NJ 58481-0218",
     phone: "+359 11 2222 333",
     intro:
       "Highly skilled and motivated software engineer with over 8 years of experience in developing and maintaining software applications. Proficient in a variety of programming languages and technologies, with a strong background in full-stack development, system design, and agile methodologies. Passionate about solving complex problems and delivering high-quality software solutions.",
@@ -54,6 +56,7 @@ export function MainSection({ cb }) {
       imageUrl: "",
       name: "",
       email: "",
+      address: "",
       phone: "",
       intro: "",
     });
@@ -75,6 +78,12 @@ export function MainSection({ cb }) {
           name="email"
           label="Email"
           value={data.email}
+          onChange={handleInputChange}
+        ></Input>
+        <Input
+          name="address"
+          label="Address"
+          value={data.address}
           onChange={handleInputChange}
         ></Input>
         <Input

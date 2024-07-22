@@ -7,6 +7,7 @@ export function AppContainer() {
   const [cvData, setCvData] = useState({
     imageUrl: "",
     name: "",
+    address: "",
     email: "",
     phone: "",
     intro: "",
