@@ -103,7 +103,7 @@ export function Duration({
   );
 }
 
-export function Image({ onFileSelect }) {
+export function Image({ onFileSelect, imageUrl }) {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -122,6 +122,7 @@ export function Image({ onFileSelect }) {
         id="imagePicker"
         type="file"
         accept="image/*"
+        defaultValue={imageUrl ? imageUrl : null}
         onChange={handleFileChange}
       />
     </div>

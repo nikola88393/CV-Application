@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Input, Text, Image } from "./Inputs";
 
 export function MainSection({ cb }) {
-  const [error, setError] = useState("All fields are required.");
   const [data, setData] = useState({
     imageUrl: "",
     name: "",
@@ -40,11 +39,6 @@ export function MainSection({ cb }) {
       ...prevData,
       [name]: value,
     }));
-    if (!value.trim()) {
-      setError("All fields are required.");
-    } else {
-      setError("");
-    }
   };
 
   const loadExample = () => {
@@ -60,14 +54,13 @@ export function MainSection({ cb }) {
       phone: "",
       intro: "",
     });
-    setError("All fields are required.");
   };
 
   return (
     <div className="inputSection">
       <h2 className="sectionHeader">Main section</h2>
       <form action="#" className="formSection" onSubmit={handleSubmit}>
-        <Image onFileSelect={handleFileSelect} />
+        <Image onFileSelect={handleFileSelect} imageUrl={data.imageUrl} />
         <Input
           name="name"
           label="Name"
@@ -99,7 +92,7 @@ export function MainSection({ cb }) {
           onChange={handleInputChange}
         ></Text>
         <div className="sectionOptions">
-          <button className="btn" type="submit" disabled={!!error}>
+          <button className="btn" type="submit">
             Submit
           </button>
           <button className="btn" onClick={loadExample}>
@@ -109,7 +102,6 @@ export function MainSection({ cb }) {
             Clear Form
           </button>
         </div>
-        <span>{error ? error : ""}</span>
       </form>
     </div>
   );

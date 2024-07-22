@@ -10,7 +10,7 @@ export function Section({
   exampleData,
 }) {
   const [id, setId] = useState(0);
-  const [error, setError] = useState("All fields are required.");
+  const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     id: id,
     primary: "",
@@ -52,15 +52,13 @@ export function Section({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!error) {
-      if (isEditing) {
-        cb(formData);
-      } else {
-        cb({ ...formData, id: id });
-        setId(id + 1);
-      }
-      resetForm();
+    if (isEditing) {
+      cb(formData);
+    } else {
+      cb({ ...formData, id: id });
+      setId(id + 1);
     }
+    resetForm();
   };
 
   const resetForm = () => {
@@ -74,7 +72,6 @@ export function Section({
       isPresent: false,
     });
     setIsEditing(false);
-    setError("");
   };
 
   const handleInputChange = (e) => {
