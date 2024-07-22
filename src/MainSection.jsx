@@ -1,16 +1,25 @@
 import { useState } from "react";
-import { Input, Text } from "./Inputs";
+import { Input, Text, Image } from "./Inputs";
 
 export function MainSection({ cb }) {
   const [error, setError] = useState("All fields are required.");
   const [data, setData] = useState({
+    imageUrl: "",
     name: "",
     email: "",
     phone: "",
     intro: "",
   });
 
+  const handleFileSelect = (imageDataUrl) => {
+    setData((prevData) => ({
+      ...prevData,
+      imageUrl: imageDataUrl,
+    }));
+  };
+
   const exampleData = {
+    imageUrl: "src/assets/J0k1DN1T_400x400.jpg",
     name: "John Doe",
     email: "JohnDoe@example.com",
     phone: "+359 11 2222 333",
@@ -42,6 +51,7 @@ export function MainSection({ cb }) {
 
   const clearForm = () => {
     setData({
+      imageUrl: "",
       name: "",
       email: "",
       phone: "",
@@ -54,6 +64,7 @@ export function MainSection({ cb }) {
     <div className="inputSection">
       <h2 className="sectionHeader">Main section</h2>
       <form action="#" className="formSection" onSubmit={handleSubmit}>
+        <Image onFileSelect={handleFileSelect} />
         <Input
           name="name"
           label="Name"

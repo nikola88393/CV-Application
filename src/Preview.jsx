@@ -5,11 +5,11 @@ import {
   faBuildingColumns,
   faBriefcase,
 } from "@fortawesome/free-solid-svg-icons";
-export function CVPreview({ mainData, eduData, workData }) {
+export function CVPreview({ mainData, imageUrl, eduData, workData }) {
   return (
     <div className="cvContainer">
       <div className="cvPreview">
-        <MainPreview mainData={mainData} />
+        <MainPreview mainData={mainData} imageUrl={imageUrl} />
         <EduPreview eduData={eduData} />
         <WorkPreview workData={workData} />
       </div>
@@ -21,21 +21,30 @@ function MainPreview({ mainData }) {
   return (
     <div className="mainPreview previewSection">
       <div className="contactInfo">
-        <p>
-          <strong>{mainData.name}</strong>
-        </p>
-        <p>
-          <strong>
-            <FontAwesomeIcon icon={faEnvelope} />
-          </strong>{" "}
-          {mainData.email}
-        </p>
-        <p>
-          <strong>
-            <FontAwesomeIcon icon={faPhone} />
-          </strong>{" "}
-          {mainData.phone}
-        </p>
+        <div className="imageContainer">
+          {mainData.imageUrl !== "" ? (
+            <img src={mainData.imageUrl} alt="Selected" />
+          ) : (
+            <p>No image selected</p>
+          )}
+        </div>
+        <div className="contactInfoContainer">
+          <p>
+            <strong>{mainData.name}</strong>
+          </p>
+          <p>
+            <strong>
+              <FontAwesomeIcon icon={faEnvelope} />
+            </strong>{" "}
+            {mainData.email}
+          </p>
+          <p>
+            <strong>
+              <FontAwesomeIcon icon={faPhone} />
+            </strong>{" "}
+            {mainData.phone}
+          </p>
+        </div>
       </div>
       <p className="introductionText">{mainData.intro}</p>
     </div>

@@ -5,6 +5,7 @@ import { EduSection, WorkSection } from "./HistorySection";
 
 export function AppContainer() {
   const [cvData, setCvData] = useState({
+    imageUrl: "",
     name: "",
     email: "",
     phone: "",
@@ -15,6 +16,7 @@ export function AppContainer() {
 
   function handleDataUpdate(data) {
     setCvData(data);
+    console.log(data);
   }
 
   function handleSchoolsUpdate(school) {

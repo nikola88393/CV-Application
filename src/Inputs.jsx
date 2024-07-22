@@ -102,3 +102,28 @@ export function Duration({
     </div>
   );
 }
+
+export function Image({ onFileSelect }) {
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        onFileSelect(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  return (
+    <div>
+      <label htmlFor="imagePicker">Upload a pciture: </label>
+      <input
+        id="imagePicker"
+        type="file"
+        accept="image/*"
+        onChange={handleFileChange}
+      />
+    </div>
+  );
+}
