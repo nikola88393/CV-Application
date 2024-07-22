@@ -168,8 +168,8 @@ export function Section({
 
 export function EduSection({ cb, eduData, eduDelCb }) {
   const exampleData = {
-    primary: "University of Anytown, USA",
-    secondary: "Bachelor of Science in Computer Science",
+    primary: "Bachelor of Science in Computer Science",
+    secondary: "University of Anytown, USA",
     description:
       "Assisted in the development of front-end and back-end components for web applications. Wrote unit and integration tests to ensure software quality and reliability. Collaborated with senior developers to learn and apply best practices in coding and design. Participated in code reviews and contributed to the improvement of the development process. Gained experience with cloud services and containerization technologies.",
     startDate: "2017-09-15",
@@ -195,8 +195,8 @@ export function EduSection({ cb, eduData, eduDelCb }) {
 
 export function WorkSection({ cb, workData, workDelCb }) {
   const exampleData = {
-    primary: "Tech Solutions Inc., Anytown, USA",
-    secondary: "Senior Software Engineer",
+    primary: "Senior Software Engineer",
+    secondary: "Tech Solutions Inc., Anytown, USA",
     description:
       "Lead the development of scalable web applications using Java, Spring Boot, and React. Design and implement RESTful APIs to support front-end applications. Collaborate with cross-functional teams to gather requirements and deliver software solutions that meet business needs. Mentor junior developers and conduct code reviews to ensure adherence to best practices. Implement CI/CD pipelines using Jenkins and Docker to streamline the deployment process. Perform system analysis and optimize application performance.",
     startDate: "2022-07-12",

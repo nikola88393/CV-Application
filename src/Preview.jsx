@@ -1,4 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRef } from "react";
+import { useReactToPrint } from "react-to-print";
 import {
   faEnvelope,
   faPhone,
@@ -7,12 +9,34 @@ import {
   faHouseUser,
 } from "@fortawesome/free-solid-svg-icons";
 export function CVPreview({ mainData, imageUrl, eduData, workData }) {
+  const componentRef = useRef();
+
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    pageStyle: `
+    @page {
+      size: A4;
+      margin: 1cm;
+    }
+    @media print {
+      body {
+        background-color: white;
+      }
+    }
+  `,
+  });
+
   return (
     <div className="cvContainer">
+      <button className="btn" onClick={handlePrint}>
+        Print CV
+      </button>
       <div className="cvPreview">
-        <MainPreview mainData={mainData} imageUrl={imageUrl} />
-        <EduPreview eduData={eduData} />
-        <WorkPreview workData={workData} />
+        <div className="cvContent" ref={componentRef}>
+          <MainPreview mainData={mainData} imageUrl={imageUrl} />
+          <EduPreview eduData={eduData} />
+          <WorkPreview workData={workData} />
+        </div>
       </div>
     </div>
   );
@@ -22,13 +46,14 @@ function MainPreview({ mainData }) {
   return (
     <div className="mainPreview previewSection">
       <div className="contactInfo">
-        <div className="imageContainer">
-          {mainData.imageUrl !== "" ? (
+        {mainData.imageUrl !== "" ? (
+          <div className="imageContainer">
             <img src={mainData.imageUrl} alt="Selected" />
-          ) : (
-            <p>No image selected</p>
-          )}
-        </div>
+          </div>
+        ) : (
+          <p>No image selected</p>
+        )}
+
         <div className="contactInfoContainer">
           <p>
             <strong>{mainData.name}</strong>
