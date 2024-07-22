@@ -25,6 +25,17 @@ export function CVPreview({ mainData, imageUrl, eduData, workData }) {
         }
       }
     `,
+    onBeforeGetContent: () => {
+      const contactInfo = document.querySelector(".contactInfo");
+      if (contactInfo) {
+        contactInfo.style.flexDirection = "row";
+      }
+      return Promise.resolve();
+    },
+    onBeforePrint: () => {
+      document.querySelector(".contactInfo").removeAttribute("style");
+      return Promise.resolve();
+    },
   });
 
   function isMainDataEmpty() {
@@ -33,12 +44,11 @@ export function CVPreview({ mainData, imageUrl, eduData, workData }) {
 
   return (
     <div className="cvContainer">
-      <button className="btn" onClick={handlePrint}>
+      <button className="btn btnPrint" onClick={handlePrint}>
         Print CV
       </button>
       <div className="cvPreview">
         <div className="cvContent" ref={componentRef}>
-          {console.log(isMainDataEmpty())}
           {!isMainDataEmpty() ? (
             <MainPreview mainData={mainData} imageUrl={imageUrl} />
           ) : (
@@ -70,7 +80,7 @@ function MainPreview({ mainData }) {
   return (
     <div className="mainPreview previewSection">
       <div className="contactInfo">
-        {mainData.imageUrl !== "" ? (
+        {mainData.imageUrl ? (
           <div className="imageContainer">
             <img src={mainData.imageUrl} alt="Selected" />
           </div>
@@ -106,6 +116,7 @@ function MainPreview({ mainData }) {
     </div>
   );
 }
+
 function EduPreview({ eduData }) {
   const education = eduData.map((edu) => (
     <div key={edu.id} className="eduEntryPreview previewSection">
@@ -121,7 +132,7 @@ function EduPreview({ eduData }) {
       </h3>
       <p>
         <strong>Date: </strong>
-        {edu.startDate} - {edu.endDate !== "" ? edu.endDate : "Present"}
+        {edu.startDate} - {edu.endDate || "Present"}
       </p>
       <p>
         <strong>Description: </strong>
@@ -147,7 +158,7 @@ function WorkPreview({ workData }) {
       </h3>
       <p>
         <strong>Date: </strong>
-        {work.startDate} - {work.endDate !== "" ? work.endDate : "Present"}
+        {work.startDate} - {work.endDate || "Present"}
       </p>
       <p>
         <strong>Description: </strong>

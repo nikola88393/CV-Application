@@ -48,17 +48,16 @@
   align-items: center;
   justify-content: center;
   flex: 1;
-  width: 500px;
+  max-width: 400px;
 }
 .cvContainer {
   background-color: var(--white-color);
   border-radius: 10px;
-  flex: 1;
+  flex: 2;
   padding: 20px;
   box-shadow: var(--shadow);
 }
 .cvPreview {
-  /* border: 1px solid red; */
   outline: 1px solid;
   max-width: 900px;
   margin: 0 auto;
@@ -94,6 +93,7 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
+  gap: 10px;
 }
 .introductionText {
   margin: 20px 0;
@@ -108,7 +108,6 @@ textarea {
 }
 .entries {
   width: 100%;
-  /* padding: 10px; */
 }
 .entry {
   display: flex;
@@ -162,6 +161,7 @@ textarea {
 }
 .imageContainer {
   width: 150px;
+  min-width: 150px;
   height: 200px;
 }
 .imageContainer img {
@@ -177,4 +177,19 @@ textarea {
   padding: 100px;
   border: 1px solid var(--accent-color);
   margin: 10px 0;
+}
+@media (max-width: 1050px) {
+  .app {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .cvContainer {
+    width: 100%;
+  }
+}
+@media (max-width: 768px) {
+  .contactInfo {
+    flex-direction: column;
+  }
 }
