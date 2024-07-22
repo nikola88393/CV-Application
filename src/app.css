@@ -60,14 +60,12 @@
 .cvPreview {
   /* border: 1px solid red; */
   outline: 1px solid;
-  width: 900px;
+  max-width: 900px;
   margin: 0 auto;
   height: 100%;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
     rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
   color: var(--accent-color);
-}
-.cvContent {
   padding: 20px;
 }
 .duration {
@@ -170,4 +168,13 @@ textarea {
   object-fit: cover;
   width: 100%;
   height: 100%;
+}
+.emptySectionMsg {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 100px;
+  border: 1px solid var(--accent-color);
+  margin: 10px 0;
 }

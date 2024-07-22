@@ -8,23 +8,28 @@ import {
   faBriefcase,
   faHouseUser,
 } from "@fortawesome/free-solid-svg-icons";
+
 export function CVPreview({ mainData, imageUrl, eduData, workData }) {
   const componentRef = useRef();
 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
     pageStyle: `
-    @page {
-      size: A4;
-      margin: 1cm;
-    }
-    @media print {
-      body {
-        background-color: white;
+      @page {
+        size: A4;
+        margin: 1cm;
       }
-    }
-  `,
+      @media print {
+        body {
+          background-color: white;
+        }
+      }
+    `,
   });
+
+  function isMainDataEmpty() {
+    return Object.values(mainData).every((entry) => entry === "");
+  }
 
   return (
     <div className="cvContainer">
@@ -33,9 +38,28 @@ export function CVPreview({ mainData, imageUrl, eduData, workData }) {
       </button>
       <div className="cvPreview">
         <div className="cvContent" ref={componentRef}>
-          <MainPreview mainData={mainData} imageUrl={imageUrl} />
-          <EduPreview eduData={eduData} />
-          <WorkPreview workData={workData} />
+          {console.log(isMainDataEmpty())}
+          {!isMainDataEmpty() ? (
+            <MainPreview mainData={mainData} imageUrl={imageUrl} />
+          ) : (
+            <p className="emptySectionMsg">
+              Add main information to display in this section
+            </p>
+          )}
+          {eduData.length > 0 ? (
+            <EduPreview eduData={eduData} />
+          ) : (
+            <p className="emptySectionMsg">
+              Add education history to display in this section
+            </p>
+          )}
+          {workData.length > 0 ? (
+            <WorkPreview workData={workData} />
+          ) : (
+            <p className="emptySectionMsg">
+              Add previous work experience to display in this section
+            </p>
+          )}
         </div>
       </div>
     </div>
