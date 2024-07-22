@@ -26,6 +26,7 @@
   align-items: center;
   justify-content: center;
   box-shadow: var(--shadow);
+  padding: 10px 0;
 }
 .logo {
   display: flex;

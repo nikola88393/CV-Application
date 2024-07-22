@@ -6,7 +6,7 @@ export function Header() {
     <div className="header">
       <div className="logo">
         <FontAwesomeIcon icon={faFile} />
-        <h1>CV Maker</h1>
+        <h2>CV Creator tool</h2>
       </div>
     </div>
   );
